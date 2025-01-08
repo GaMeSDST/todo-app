@@ -16,7 +16,7 @@ export default function Home() {
     return (
         <>
             <div className="w-[100%] h-[300px] bg-no-repeat bg-cover bg-[url(../../public/bg-desktop-light.jpg)] dark:bg-[url(../../public/bg-desktop-dark.jpg)]"></div>
-            <div id="container" className="w-[35rem] flex flex-col items-center mx-auto relative top-[-15rem] justify-center">
+            <div id="container" className="max-[650px]:w-[20rem] w-[35rem] flex flex-col items-center mx-auto relative top-[-15rem] justify-center">
                 <Header />
                 <AddTodo />
                 <TodoContainer />
