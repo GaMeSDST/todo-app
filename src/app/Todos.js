@@ -2,16 +2,17 @@ import { useEffect } from "react";
 import Todo from "./Todo.js";
 export default function Todos() {
     let todos = JSON.parse(localStorage.getItem("todos"));
-    let hope = todos.map((item) => {
-        return (
-            <>
-                <Todo index={item[0]} value={item[1]} checked={item[2]} key={crypto.randomUUID()} />
-            </>
-        );
-    });
+    let hope;
+    if (todos != null) {
+        hope = todos.map((item) => {
+            return <Todo index={item[0]} value={item[1]} checked={item[2]} key={crypto.randomUUID()} />;
+        });
+    } else {
+        return <div></div>;
+    }
     return (
         <>
-            <div key={crypto.randomUUID()}>{hope}</div>
+            <div className="overflow-auto">{hope}</div>
         </>
     );
 }
