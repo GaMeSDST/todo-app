@@ -25,7 +25,7 @@ export default function AddTodo() {
                         id="adding_value"
                         type="text"
                         placeholder="Create a new todo..."
-                        className="bg-transparent h-[5rem] max-[650px]:text-[1.3rem] text-[1.5rem] text-[#3c3b41] placeholder:text-[#3c3b41] dark:text-[#c9cbe2] dark:placeholder:text-[#c9cbe2]"
+                        className="w-full bg-transparent h-[5rem] max-[650px]:text-[1.3rem] text-[1.5rem] text-[#3c3b41] placeholder:text-[#3c3b41] dark:text-[#c9cbe2] dark:placeholder:text-[#c9cbe2]"
                     ></input>
                 </form>
             </div>

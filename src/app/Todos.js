@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import Todo from "./Todo.js";
 export default function Todos() {
-    let todos = JSON.parse(localStorage.getItem("todos"))[0];
+    let todos = JSON.parse(localStorage.getItem("todos"));
+    let hope = todos.map((item) => {
+        return (
+            <>
+                <Todo index={item[0]} value={item[1]} checked={item[2]} key={crypto.randomUUID()} />
+            </>
+        );
+    });
     return (
         <>
-            <Todo value={todos[1]} index={todos[0]} checked={todos[2]} />
+            <div key={crypto.randomUUID()}>{hope}</div>
         </>
     );
 }
