@@ -3,10 +3,10 @@ function handleAdding(event) {
     let value = document.querySelector("#adding_value").value;
 
     if (JSON.parse(localStorage.getItem("todos")) == null) {
-        localStorage.setItem("todos", JSON.stringify([[0, value, false]]));
+        localStorage.setItem("todos", JSON.stringify([[value, false]]));
     } else {
         let todos = JSON.parse(localStorage.getItem("todos"));
-        todos.push([todos.length, value, false]);
+        todos.push([value, false]);
         localStorage.setItem("todos", JSON.stringify(todos));
     }
 }
@@ -18,7 +18,7 @@ export default function AddTodo() {
                     <div className="flex flex-row items-center justify-center mt-[-0.3rem]">
                         <input
                             type="checkbox"
-                            className="appearance-none peer w-8 h-8 rounded-full bg-transparent border-2 border-[#f2f2f4] dark:border-[#37394e] max-[650px]:mr-4 mx-6 "
+                            className="transition-all appearance-none peer w-8 h-8 rounded-full bg-transparent border-2 border-[#f2f2f4] dark:border-[#37394e] max-[650px]:mr-4 mx-6 "
                         ></input>
                     </div>
                     <input

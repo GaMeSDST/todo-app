@@ -1,14 +1,17 @@
 import Todos from "./Todos.js";
 import TodoFooter from "./TodoFooter.js";
+import { useState } from "react";
 
 export default function TodoContainer() {
+    const [render, setRender] = useState(false);
+    const [filter, setFilter] = useState("All");
     return (
         <>
             <div
                 id="todo-container"
                 className="transition-all duration-200 bg-white dark:bg-[#25273c] w-[100%] mt-6 h-[30rem] rounded-lg flex flex-col justify-between"
             >
-                <Todos />
+                <Todos setRender={() => setRender(!render)} />
                 <TodoFooter />
             </div>
             <div className="min-[650px]:hidden transition-all duration-200 bg-white dark:bg-[#25273c] mt-4 flex flex-row justify-center items-center gap-6 text-[#9999a3] dark:text-[#60627b] w-[100%] h-[4rem]">

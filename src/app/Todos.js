@@ -1,18 +1,17 @@
-import { useEffect } from "react";
 import Todo from "./Todo.js";
-export default function Todos() {
+export default function Todos({ setRender }) {
     let todos = JSON.parse(localStorage.getItem("todos"));
     let hope;
     if (todos != null) {
-        hope = todos.map((item) => {
-            return <Todo index={item[0]} value={item[1]} checked={item[2]} key={crypto.randomUUID()} />;
+        hope = todos.map((item, index) => {
+            return <Todo setRender={setRender} index={index} value={item[0]} checked={item[1]} key={crypto.randomUUID()} />;
         });
     } else {
         return <div></div>;
     }
     return (
         <>
-            <div className="overflow-auto">{hope}</div>
+            <div className="h-[26rem] overflow-auto">{hope}</div>
         </>
     );
 }
