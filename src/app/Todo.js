@@ -31,7 +31,7 @@ export default function Todo({ index, value, checked, setRender }) {
                             onClick={(index) => handleCheck(index)}
                             defaultChecked={checked ? checked : checked}
                             type="checkbox"
-                            className="appearance-none transition-all peer w-8 h-8 rounded-full border-2 hover:border-[#8dabcf] border-[#eae9ee] dark:border-[#37394e] bg-transparent cursor-pointer checked:bg-gradient-to-br from-[#57ddff] to-[#c058f3] max-[650px]:mr-4 mx-6 "
+                            className="appearance-none transition-all peer w-8 h-8 rounded-full border-2 max-[650px]:mr-[1.4rem] hover:border-[#8dabcf] border-[#eae9ee] dark:border-[#37394e] bg-transparent cursor-pointer checked:bg-gradient-to-br from-[#57ddff] to-[#c058f3] mx-6 "
                         ></input>
                         <div className="peer-checked:bg-[url(../../public/icon-check.svg)] w-3 h-2 ml-[0.1rem] pointer-events-none cursor-pointer absolute bg-no-repeat scale-125"></div>
                     </div>
@@ -44,6 +44,7 @@ export default function Todo({ index, value, checked, setRender }) {
                         className="bg-transparent h-[5rem] max-[650px]:text-[1.3rem] text-[1.5rem] text-[#3c3b41] placeholder:text-[#3c3b41] dark:text-[#c9cbe2] dark:placeholder:text-[#c9cbe2]"
                     ></input>
                     <button
+                        type="button"
                         onClick={(event) => {
                             handleRemoval(event);
                             setRender();

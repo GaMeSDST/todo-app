@@ -10,11 +10,17 @@ function handleAdding(event) {
         localStorage.setItem("todos", JSON.stringify(todos));
     }
 }
-export default function AddTodo() {
+export default function AddTodo({ setRender }) {
     return (
         <>
             <div className="transition-all duration-200 bg-white dark:bg-[#25273c] w-[100%] mt-4 h-20 rounded-lg">
-                <form className="flex" onSubmit={(event) => handleAdding(event)}>
+                <form
+                    className="flex"
+                    onSubmit={(event) => {
+                        handleAdding(event);
+                        setRender();
+                    }}
+                >
                     <div className="flex flex-row items-center justify-center mt-[-0.3rem]">
                         <input
                             type="checkbox"
