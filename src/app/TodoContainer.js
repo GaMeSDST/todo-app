@@ -5,13 +5,28 @@ import { useState } from "react";
 function dropHandler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text/plain");
-    console.log(document.getElementById(data));
-    console.log(ev.target.parentElement.parentElement);
-    if (ev.target.id == "todos") {
-        ev.target.appendChild(document.getElementById(data));
-    } else {
-        ev.target.parentElement.parentElement.replaceWith(document.getElementById(data));
-        document.getElementById("todos").appendChild(ev.target.parentElement.parentElement);
+    let hoverId = data.match(/[0-9]/g).join("");
+
+    let hoverOnId = ev.target.parentElement.id.match(/[0-9]/g);
+    if (hoverOnId == null) hoverOnId = ev.target.parentElement.parentElement.id.match(/[0-9]/g);
+    if (hoverOnId == null) hoverOnId = ev.target.parentElement.parentElement.parentElement.id.match(/[0-9]/g);
+    hoverOnId.join("");
+
+    let rect = ev.target.parentElement.getBoundingClientRect();
+    let x = ev.clientX - rect.left;
+    let y = ev.clientY - rect.top;
+
+    if (y < 81.6 / 2) {
+        let todos = JSON.parse(localStorage.getItem("todos"));
+        let removed = todos.splice(hoverId, 1);
+        todos.splice(hoverOnId, 0, removed[0]);
+        localStorage.setItem("todos", JSON.stringify(todos));
+    } else if (y > 81.6 / 2) {
+        if (hoverId - 1 == hoverOnId) return;
+        let todos = JSON.parse(localStorage.getItem("todos"));
+        let removed = todos.splice(hoverId, 1);
+        todos.splice(hoverOnId, 0, removed[0]);
+        localStorage.setItem("todos", JSON.stringify(todos));
     }
 }
 function dragOverHandler(ev) {
@@ -26,7 +41,10 @@ export default function TodoContainer() {
         <>
             <AddTodo setRender={() => setRender(!render)} />
             <div
-                onDrop={(e) => dropHandler(e)}
+                onDrop={(e) => {
+                    dropHandler(e);
+                    setRender(!render);
+                }}
                 onDragOver={(e) => dragOverHandler(e)}
                 id="todo-container"
                 className="transition-all duration-200 bg-white dark:bg-[#25273c] w-[100%] mt-6 h-[30rem] rounded-lg flex flex-col justify-between"
