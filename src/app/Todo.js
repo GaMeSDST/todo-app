@@ -7,7 +7,6 @@ function handleRemoval(event, setRender) {
 function handleCheck(event) {
     let index = event.target.id.match(/[0-9]/g).join("");
     let todos = JSON.parse(localStorage.getItem("todos"));
-    console.log(todos[index]);
     todos[index][1] = event.target.checked;
     localStorage.setItem("todos", JSON.stringify(todos));
 }
@@ -15,20 +14,34 @@ function handleCheck(event) {
 function handleChange(event) {
     let index = event.target.id.match(/[0-9]/g).join("");
     let todos = JSON.parse(localStorage.getItem("todos"));
-    console.log(event.target.value);
     todos[index][0] = event.target.value;
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+function dragStartHandler(ev) {
+    ev.stopPropagation();
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.effectAllowed = "move";
+}
 export default function Todo({ index, value, checked, setRender }) {
     return (
         <>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form
+                id={"movable" + index}
+                onDragEnter={(e) => e.preventDefault()}
+                draggable
+                onDragStart={(e) => dragStartHandler(e)}
+                onSubmit={(e) => e.preventDefault()}
+                className=""
+            >
                 <div className="relative transition-all group flex flex-row items-center mt-2 border-b-2 border-[#e6e5ea] dark:border-[#37394e]">
                     <div className="flex flex-row items-center justify-center mt-[-0.3rem]">
                         <input
                             id={`checkbox_${index}`}
-                            onClick={(index) => handleCheck(index)}
+                            onClick={(index) => {
+                                handleCheck(index);
+                                setRender();
+                            }}
                             defaultChecked={checked ? checked : checked}
                             type="checkbox"
                             className="appearance-none transition-all peer w-8 h-8 rounded-full border-2 max-[650px]:mr-[1.4rem] hover:border-[#8dabcf] border-[#eae9ee] dark:border-[#37394e] bg-transparent cursor-pointer checked:bg-gradient-to-br from-[#57ddff] to-[#c058f3] mx-6 "
@@ -41,7 +54,9 @@ export default function Todo({ index, value, checked, setRender }) {
                         type="text"
                         defaultValue={value}
                         placeholder="Create a new todo..."
-                        className="bg-transparent h-[5rem] max-[650px]:text-[1.3rem] text-[1.5rem] text-[#3c3b41] placeholder:text-[#3c3b41] dark:text-[#c9cbe2] dark:placeholder:text-[#c9cbe2]"
+                        className={`${
+                            checked && "line-through"
+                        } w-[25rem] bg-transparent max-[650px]:w-[12rem] h-[5rem] max-[650px]:text-[1.3rem] text-[1.5rem] text-[#3c3b41] placeholder:text-[#3c3b41] dark:text-[#c9cbe2] dark:placeholder:text-[#c9cbe2]`}
                     ></input>
                     <button
                         type="button"

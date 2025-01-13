@@ -9,6 +9,7 @@ function handleAdding(event) {
         todos.push([value, false]);
         localStorage.setItem("todos", JSON.stringify(todos));
     }
+    document.querySelector("#adding_value").value = "";
 }
 export default function AddTodo({ setRender }) {
     return (
