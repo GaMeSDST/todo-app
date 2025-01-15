@@ -1,18 +1,20 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Todo from "./Todo.js";
 
 export default function Todos({ setRender, filter }) {
-    let todos;
-    todos = JSON.parse(localStorage.getItem("todos"));
-
+    console.log("todos");
+    const [todos, setTodos] = useState();
     let hope;
-
-    if (filter == "Active") {
-        todos = todos.filter((item) => item[1] == false);
-    } else if (filter == "Completed") {
-        todos = todos.filter((items) => items[1] == true);
-    }
+    useEffect(() => {
+        let value = JSON.parse(localStorage.getItem("todos"));
+        if (filter == "Active") {
+            value = value.filter((item) => item[1] == false);
+        } else if (filter == "Completed") {
+            value = value.filter((items) => items[1] == true);
+        }
+        setTodos(value);
+    }, [setRender]);
 
     if (todos != null) {
         hope = todos.map((item, index) => {
