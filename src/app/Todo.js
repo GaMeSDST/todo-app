@@ -1,3 +1,4 @@
+"use client";
 function handleRemoval(event, setRender) {
     let index = event.target.id.match(/[0-9]/g).join("");
     let todos = JSON.parse(localStorage.getItem("todos"));

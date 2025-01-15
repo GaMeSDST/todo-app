@@ -3,13 +3,6 @@ import Header from "./Header.js";
 import TodoContainer from "./TodoContainer.js";
 import Image from "next/image";
 
-function handleTheme() {
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.querySelector("body").classList.add("dark");
-    } else {
-        return;
-    }
-}
 export default function Home() {
     return (
         <>

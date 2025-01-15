@@ -1,6 +1,12 @@
+"use client";
+import { useEffect } from "react";
 import Todo from "./Todo.js";
+
 export default function Todos({ setRender, filter }) {
-    let todos = JSON.parse(localStorage.getItem("todos"));
+    let todos;
+    useEffect(() => {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    });
     let hope;
 
     if (filter == "Active") {

@@ -1,3 +1,4 @@
+"use client";
 import Todos from "./Todos.js";
 import AddTodo from "./AddTodo.js";
 import TodoFooter from "./TodoFooter.js";
