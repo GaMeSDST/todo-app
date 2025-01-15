@@ -19,22 +19,66 @@ function handleChange(event) {
 }
 
 function dragStartHandler(ev) {
-    ev.stopPropagation();
     ev.dataTransfer.setData("text/plain", ev.target.id);
     ev.dataTransfer.effectAllowed = "move";
+}
+
+function dragLeaveHander(e) {
+    e.preventDefault();
+    let hoverId = e.target.id.match(/[0-9]/g);
+    if (hoverId == null) {
+        hoverId = e.target.parentElement.id.match(/[0-9]/g);
+    } else if (hoverId == null) {
+        hoverId = e.target.parentElement.parentElement.id.match(/[0-9]/g);
+    } else {
+        hoverId.join("");
+    }
+    let hoveredOnElement = document.getElementById("movable" + parseInt(hoverId));
+    hoveredOnElement.classList.remove("border-t-2");
+    hoveredOnElement.classList.remove("border-b-2");
+    hoveredOnElement.classList.remove("border-green-700");
+}
+
+function dragOverHandler(e) {
+    e.preventDefault();
+    let hoverId = e.target.id.match(/[0-9]/g);
+    if (hoverId == null) {
+        hoverId = e.target.parentElement.id.match(/[0-9]/g);
+    } else if (hoverId == null) {
+        hoverId = e.target.parentElement.parentElement.id.match(/[0-9]/g);
+    } else {
+        hoverId.join("");
+    }
+    let hoveredOnElement = document.getElementById("movable" + parseInt(hoverId));
+
+    let rect = e.target.parentElement.getBoundingClientRect();
+    let y = e.clientY - rect.top;
+
+    if (y < 81.6 / 2) {
+        hoveredOnElement.classList.add("border-t-2");
+        hoveredOnElement.classList.remove("border-b-2");
+    } else if (y > 81.6 / 2) {
+        hoveredOnElement.classList.add("border-b-2");
+        hoveredOnElement.classList.remove("border-t-2");
+    }
+    hoveredOnElement.classList.add("border-green-700");
 }
 export default function Todo({ index, value, checked, setRender }) {
     return (
         <>
             <form
                 id={"movable" + index}
-                onDragEnter={(e) => e.preventDefault()}
                 draggable
                 onDragStart={(e) => dragStartHandler(e)}
+                onDragOver={(e) => dragOverHandler(e)}
+                onDragLeave={(e) => dragLeaveHander(e)}
                 onSubmit={(e) => e.preventDefault()}
                 className=""
             >
-                <div className="relative transition-all group flex flex-row items-center mt-2 border-b-2 border-[#e6e5ea] dark:border-[#37394e]">
+                <div
+                    id={"inner" + index}
+                    className="relative transition-all group flex flex-row items-center mt-2 border-b-2 border-[#e6e5ea] dark:border-[#37394e]"
+                >
                     <div className="flex flex-row items-center justify-center mt-[-0.3rem]">
                         <input
                             id={`checkbox_${index}`}

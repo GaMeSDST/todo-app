@@ -13,10 +13,10 @@ function dropHandler(ev) {
     hoverOnId.join("");
 
     let rect = ev.target.parentElement.getBoundingClientRect();
-    let x = ev.clientX - rect.left;
     let y = ev.clientY - rect.top;
 
     if (y < 81.6 / 2) {
+        if (hoverId == hoverOnId - 1) return;
         let todos = JSON.parse(localStorage.getItem("todos"));
         let removed = todos.splice(hoverId, 1);
         todos.splice(hoverOnId, 0, removed[0]);
