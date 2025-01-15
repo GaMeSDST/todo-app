@@ -7,7 +7,6 @@ function clearCompleted() {
         localStorage.setItem("todos", JSON.stringify(JSON.parse(localStorage.getItem("todos")).filter((item) => item[1] == false)));
 }
 export default function TodoFooter({ setFilter, setRender, filter }) {
-    console.log("footer");
     const [todos, setTodos] = useState();
     useEffect(() => {
         let value = JSON.parse(localStorage.getItem("todos"));
@@ -19,7 +18,7 @@ export default function TodoFooter({ setFilter, setRender, filter }) {
     return (
         <>
             <div className="transition-all max-[650px]:justify-between max-[650px]:px-6 flex flex-row justify-evenly items-center border-t-2 text-[#9999a3] dark:text-[#60627b] border-[#e6e5ea] dark:border-[#37394e] w-[100%] h-[4rem]">
-                <div>{`${todos} items left`}</div>
+                <div>{`${todos == undefined ? 0 : todos} items left`}</div>
                 <div className="max-[650px]:hidden flex flex-row mr-8 ml-12">
                     <button
                         onClick={() => setFilter("All")}

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Todo from "./Todo.js";
 
 export default function Todos({ setRender, filter }) {
-    console.log("todos");
     const [todos, setTodos] = useState();
     let hope;
     useEffect(() => {
