@@ -6,16 +6,20 @@ function clearCompleted() {
     if (localStorage.getItem("todos") != null)
         localStorage.setItem("todos", JSON.stringify(JSON.parse(localStorage.getItem("todos")).filter((item) => item[1] == false)));
 }
-
-export default function TodoFooter({ setFilter, setRender, filter }) {
+function getValue() {
     let todos;
-    useEffect(() => {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    });
+    todos = JSON.parse(localStorage.getItem("todos"));
+    if (todos != null) {
+        return todos.filter((item) => item[1] == false).length;
+    } else {
+        return 0;
+    }
+}
+export default function TodoFooter({ setFilter, setRender, filter }) {
     return (
         <>
             <div className="transition-all max-[650px]:justify-between max-[650px]:px-6 flex flex-row justify-evenly items-center border-t-2 text-[#9999a3] dark:text-[#60627b] border-[#e6e5ea] dark:border-[#37394e] w-[100%] h-[4rem]">
-                <div>{`${todos != null ? todos.filter((item) => item[1] == false).length : 0} items left`}</div>
+                <div>{`${getValue()} items left`}</div>
                 <div className="max-[650px]:hidden flex flex-row mr-8 ml-12">
                     <button
                         onClick={() => setFilter("All")}

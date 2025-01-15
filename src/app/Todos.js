@@ -4,9 +4,8 @@ import Todo from "./Todo.js";
 
 export default function Todos({ setRender, filter }) {
     let todos;
-    useEffect(() => {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    });
+    todos = JSON.parse(localStorage.getItem("todos"));
+
     let hope;
 
     if (filter == "Active") {

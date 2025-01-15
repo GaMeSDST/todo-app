@@ -1,4 +1,3 @@
-"use client";
 function handleAdding(event) {
     event.preventDefault();
     let value = document.querySelector("#adding_value").value;
